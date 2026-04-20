@@ -35,17 +35,20 @@ jobs:
           cd frontend
           npm ci
       
+      - name: Download and install SonarQube Scanner
+        run: |
+          wget -q https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-6.2.1.4610-linux.zip
+          unzip -q sonar-scanner-cli-6.2.1.4610-linux.zip
+          export PATH=$PWD/sonar-scanner-6.2.1.4610-linux/bin:$PATH
+          echo "$PWD/sonar-scanner-6.2.1.4610-linux/bin" >> $GITHUB_PATH
+      
       - name: Run SonarQube Scanner
-        uses: sonarsource/sonarqube-scan-action@master
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        with:
-          args: >
-            -Dsonar.projectKey=react-nodejs-postgress-application
-            -Dsonar.projectName=React NodeJS PostgreSQL Application
-            -Dsonar.sources=backend,frontend/src
-            -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/build/**,**/.git/**
-            -Dsonar.sourceEncoding=UTF-8
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        run: |
+          sonar-scanner \
+            -Dsonar.projectKey=react-nodejs-postgress-application \
+            -Dsonar.projectName=React NodeJS PostgreSQL Application \
+            -Dsonar.sources=backend,frontend/src \
+            -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/build/**,**/.git/** \
+            -Dsonar.sourceEncoding=UTF-8 \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
