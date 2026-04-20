@@ -20,4 +20,4 @@ sonar.sourceEncoding=UTF-8
 sonar.host.url=http://localhost:9000
 
 # Authentication token (use SONAR_TOKEN environment variable or pass via CLI)
-# sonar.login=${SONAR_TOKEN}
+sonar.login=${SONAR_TOKEN}
