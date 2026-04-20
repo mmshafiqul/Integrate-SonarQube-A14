@@ -1,0 +1,52 @@
+name: SonarQube Analysis
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - develop
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  sonarqube:
+    name: SonarQube Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          npm ci
+      
+      - name: Install frontend dependencies
+        run: |
+          cd frontend
+          npm ci
+      
+      - name: Run SonarQube Scanner
+        uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        with:
+          args: >
+            -Dsonar.projectKey=react-nodejs-postgress-application
+            -Dsonar.projectName=React NodeJS PostgreSQL Application
+            -Dsonar.sources=backend,frontend/src
+            -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/build/**,**/.git/**
+            -Dsonar.sourceEncoding=UTF-8
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
