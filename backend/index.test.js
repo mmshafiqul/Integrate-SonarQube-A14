@@ -1,19 +1,22 @@
 import request from 'supertest';
 
-// Mock the pg module
-const mockPool = {
-  connect: jest.fn(() => Promise.resolve()),
-  query: jest.fn()
-};
-
-jest.mock('pg', () => ({
-  Pool: jest.fn(() => mockPool)
-}));
-
 // Mock dotenv
 jest.mock('dotenv', () => ({
   config: jest.fn()
 }));
+
+// Mock the pg module with hoisted variable
+let mockPool;
+
+jest.mock('pg', () => {
+  mockPool = {
+    connect: jest.fn(() => Promise.resolve()),
+    query: jest.fn()
+  };
+  return {
+    Pool: jest.fn(() => mockPool)
+  };
+});
 
 // Import app after mocking
 import app from './index.js';
