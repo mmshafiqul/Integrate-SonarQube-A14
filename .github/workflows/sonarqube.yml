@@ -39,11 +39,12 @@ jobs:
         run: |
           docker run --rm \
             -e SONAR_TOKEN=${{ secrets.SONAR_TOKEN }} \
-            -e SONAR_HOST_URL=${{ secrets.SONAR_HOST_URL }} \
+            -e SONAR_HOST_URL=https://sonarcloud.io \
             -v $PWD:/usr/src \
             sonarsource/sonar-scanner-cli \
             -Dsonar.projectKey=react-nodejs-postgress-application \
             -Dsonar.projectName=React NodeJS PostgreSQL Application \
             -Dsonar.sources=backend,frontend/src \
             -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/build/**,**/.git/** \
-            -Dsonar.sourceEncoding=UTF-8
+            -Dsonar.sourceEncoding=UTF-8 \
+            -Dsonar.organization=mmshafiqul
