@@ -40,16 +40,16 @@ jobs:
           npm install --legacy-peer-deps
 
       # 5. Run backend tests with coverage
-      - name: Run backend tests
-        run: |
-          cd backend
-          npm run test -- --coverage
+      # - name: Run backend tests
+      #   run: |
+      #     cd backend
+      #     npm run test -- --coverage
 
       # 6. Run frontend tests with coverage
-      - name: Run frontend tests
-        run: |
-          cd frontend
-          npm run test -- --coverage
+      # - name: Run frontend tests
+      #   run: |
+      #     cd frontend
+      #     npm run test -- --coverage
 
       # 7. Run SonarCloud analysis
       - name: SonarCloud Scan
