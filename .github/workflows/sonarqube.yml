@@ -41,7 +41,7 @@ jobs:
             -e SONAR_TOKEN=${{ secrets.SONAR_TOKEN }} \
             -e SONAR_HOST_URL=https://sonarcloud.io \
             -v $PWD:/usr/src \
-            sonarsource/sonar-scanner-cli \
+            sonarsource/sonar-scanner-cli:5.0.1.3006 \
             -Dsonar.projectKey=react-nodejs-postgress-application \
             -Dsonar.projectName=React NodeJS PostgreSQL Application \
             -Dsonar.sources=backend,frontend/src \
