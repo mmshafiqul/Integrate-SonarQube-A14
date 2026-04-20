@@ -12,5 +12,14 @@ export default {
     '**/*.spec.js'
   ],
   moduleFileExtensions: ['js'],
-  transform: {}
+  transform: {
+    '^.+\\.js$': 'babel-jest'
+  },
+  preset: null,
+  extensionsToTreatAsEsm: ['.js'],
+  globals: {
+    'ts-jest': {
+      useESM: true
+    }
+  }
 };
