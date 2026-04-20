@@ -15,11 +15,5 @@ export default {
   transform: {
     '^.+\\.js$': 'babel-jest'
   },
-  preset: null,
-  extensionsToTreatAsEsm: ['.js'],
-  globals: {
-    'ts-jest': {
-      useESM: true
-    }
-  }
+  preset: null
 };
