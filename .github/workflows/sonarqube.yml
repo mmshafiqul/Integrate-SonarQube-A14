@@ -11,7 +11,7 @@ on:
 
 jobs:
   sonarqube:
-    name: SonarCloud Scan
+    name: SonarQube Scan
     runs-on: ubuntu-latest
 
     steps:
@@ -39,20 +39,15 @@ jobs:
           cd frontend
           npm install --legacy-peer-deps
 
-      # 5. Run backend tests with coverage
-      # - name: Run backend tests
-      #   run: |
-      #     cd backend
-      #     npm run test -- --coverage
+      # ✅ 5. Install SonarQube Scanner
+      - name: Install SonarQube Scanner
+        run: npm install -g sonarqube-scanner
 
-      # 6. Run frontend tests with coverage
-      # - name: Run frontend tests
-      #   run: |
-      #     cd frontend
-      #     npm run test -- --coverage
-
-      # 7. Run SonarCloud analysis
-      # - name: SonarCloud Scan
-      #   uses: SonarSource/sonarcloud-github-action@v2
-      #   env:
-      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      # ✅ 6. Run SonarQube Scan
+      - name: Run SonarQube Analysis
+        run: |
+          sonar-scanner \
+            -Dsonar.projectKey=react-node-a14-app \
+            -Dsonar.sources=. \
+            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
