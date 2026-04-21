@@ -1,5 +1,0 @@
-sonarQUbe_generated_token = sqa_db1140fb95afabd30e3a6d7dde0fd2cab26ae73f
-
-
-react-node-a14-app=sqa_b9bea972f3bac3c6c11028a66b53751080e7cdea
-http://13.126.63.77:9000/
